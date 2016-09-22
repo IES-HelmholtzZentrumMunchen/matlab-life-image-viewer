@@ -1,0 +1,74 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="3996894286" file="/Users/julien.pontabry/Documents/MATLAB/lifeimageviewer/Life Image Viewer.prj" location="/Users/julien.pontabry/Documents/MATLAB/lifeimageviewer" name="Life Image Viewer" target="target.mlapps" target-name="Package App">
+    <param.appname>Life Image Viewer</param.appname>
+    <param.authnamewatermark>Julien Pontabry</param.authnamewatermark>
+    <param.email>julien.pontabry@helmholtz-muenchen.de</param.email>
+    <param.company>IES / Helmholtz Zentrum München</param.company>
+    <param.icon>${PROJECT_ROOT}/Life Image Viewer_resources/icon_24.png</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}/Life Image Viewer_resources/icon_48.png</file>
+      <file>${PROJECT_ROOT}/Life Image Viewer_resources/icon_24.png</file>
+      <file>${PROJECT_ROOT}/Life Image Viewer_resources/icon_16.png</file>
+    </param.icons>
+    <param.summary>This is a simple viewer of life images within MatLab.</param.summary>
+    <param.description />
+    <param.screenshot>${PROJECT_ROOT}/Life Image Viewer_resources/liv_screenshot.png</param.screenshot>
+    <param.version>1.1</param.version>
+    <param.products.name>
+      <item>MATLAB</item>
+    </param.products.name>
+    <param.products.id>
+      <item>1</item>
+    </param.products.id>
+    <param.products.version>
+      <item>9.0</item>
+    </param.products.version>
+    <param.platforms />
+    <param.output>/Users/julien.pontabry/Documents/MATLAB/Packages</param.output>
+    <param.guid>c2b6c77d-dab3-4af6-89af-9666dd6fd767</param.guid>
+    <unset>
+      <param.description />
+      <param.platforms />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/gui.m</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>/Users/julien.pontabry/Documents/MATLAB/bfmatlab/bfCheckJavaMemory.m</file>
+      <file>/Users/julien.pontabry/Documents/MATLAB/bfmatlab/bfCheckJavaPath.m</file>
+      <file>/Users/julien.pontabry/Documents/MATLAB/bfmatlab/bfGetFileExtensions.m</file>
+      <file>/Users/julien.pontabry/Documents/MATLAB/bfmatlab/bfGetPlane.m</file>
+      <file>/Users/julien.pontabry/Documents/MATLAB/bfmatlab/bfGetReader.m</file>
+      <file>/Users/julien.pontabry/Documents/MATLAB/bfmatlab/bfopen.m</file>
+      <file>/Users/julien.pontabry/Documents/MATLAB/bfmatlab/private/is_octave.m</file>
+      <file>${PROJECT_ROOT}/gui.fig</file>
+      <file>${PROJECT_ROOT}/gui_load_from_ws.fig</file>
+      <file>${PROJECT_ROOT}/gui_load_from_ws.m</file>
+    </fileset.depfun>
+    <fileset.resources />
+    <fileset.package />
+    <build-deliverables>
+      <file location="/Users/julien.pontabry/Documents/MATLAB" name="Packages" optional="false">/Users/julien.pontabry/Documents/MATLAB/Packages</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/Applications/MATLAB_R2016a.app</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>true</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.11.4</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>maci64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
