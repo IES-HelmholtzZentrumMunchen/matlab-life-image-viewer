@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 12-May-2016 10:49:00
+% Last Modified by GUIDE v2.5 29-Sep-2016 15:23:07
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -90,7 +90,7 @@ function xyslider_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns xytext of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-set_current_image_position(handles.output, handles, round(get(handles.yzslider,'Value')), round(get(handles.xzslider,'Value')), round(get(handles.xyslider,'Value')));
+set_current_image_position(handles.output, handles, round(get(handles.zyslider,'Value')), round(get(handles.zxslider,'Value')), round(get(handles.xyslider,'Value')));
 
 
 % --- Executes during object creation, after setting all properties.
@@ -106,20 +106,20 @@ end
 
 
 % --- Executes on slider movement.
-function xzslider_Callback(hObject, eventdata, handles)
-% hObject    handle to xzslider (see GCBO)
+function zyslider_Callback(hObject, eventdata, handles)
+% hObject    handle to zyslider (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hints: get(hObject,'Value') returns xytext of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-set_current_image_position(handles.output, handles, round(get(handles.yzslider,'Value')), round(get(handles.xzslider,'Value')), round(get(handles.xyslider,'Value')));
+set_current_image_position(handles.output, handles, round(get(handles.zyslider,'Value')), round(get(handles.zxslider,'Value')), round(get(handles.xyslider,'Value')));
 
 
 % --- Executes during object creation, after setting all properties.
-function xzslider_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to xzslider (see GCBO)
+function zyslider_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to zyslider (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -130,20 +130,20 @@ end
 
 
 % --- Executes on slider movement.
-function yzslider_Callback(hObject, eventdata, handles)
-% hObject    handle to yzslider (see GCBO)
+function zxslider_Callback(hObject, eventdata, handles)
+% hObject    handle to zxslider (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hints: get(hObject,'Value') returns xytext of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-set_current_image_position(handles.output, handles, round(get(handles.yzslider,'Value')), round(get(handles.xzslider,'Value')), round(get(handles.xyslider,'Value')));
+set_current_image_position(handles.output, handles, round(get(handles.zyslider,'Value')), round(get(handles.zxslider,'Value')), round(get(handles.xyslider,'Value')));
 
 
 % --- Executes during object creation, after setting all properties.
-function yzslider_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to yzslider (see GCBO)
+function zxslider_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to zxslider (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -374,8 +374,8 @@ function figure1_WindowButtonDownFcn(object, eventdata, hObject)
     
     if lim_x(1) <= mouse_pos(1,1) && mouse_pos(1,1) <= lim_x(2) && ...
        lim_y(1) <= mouse_pos(1,2) && mouse_pos(1,2) <= lim_y(2)
-        x_pos = round(mouse_pos(1,2)/handles.x_physical);
-        y_pos = round(mouse_pos(1,1)/handles.y_physical);
+        x_pos = round(mouse_pos(1,1)/handles.x_physical);
+        y_pos = round(mouse_pos(1,2)/handles.y_physical);
         z_pos = round(handles.z_pos);
     else
         mouse_pos = get(handles.xzview,'CurrentPoint');
@@ -384,9 +384,9 @@ function figure1_WindowButtonDownFcn(object, eventdata, hObject)
         
         if lim_x(1) <= mouse_pos(1,1) && mouse_pos(1,1) <= lim_x(2) && ...
            lim_y(1) <= mouse_pos(1,2) && mouse_pos(1,2) <= lim_y(2)
-            x_pos = round(mouse_pos(1,2)/handles.x_physical);
+            x_pos = round(mouse_pos(1,1)/handles.x_physical);
             y_pos = round(handles.y_pos);
-            z_pos = round(mouse_pos(1,1)/handles.z_physical);
+            z_pos = round(mouse_pos(1,2)/handles.z_physical);
         else
             mouse_pos = get(handles.zyview,'CurrentPoint');
             lim_x = get(handles.zyview,'XLim');
@@ -405,10 +405,11 @@ function figure1_WindowButtonDownFcn(object, eventdata, hObject)
         end
     end
     
+%     disp(x_pos); disp(y_pos); disp(z_pos);
     set_current_image_position(hObject, handles, x_pos, y_pos, z_pos);
     set(handles.xyslider,'Value',z_pos);
-    set(handles.xzslider,'Value',y_pos);
-    set(handles.yzslider,'Value',x_pos);
+    set(handles.zyslider,'Value',x_pos);
+    set(handles.zxslider,'Value',y_pos);
 
 
 % --- Initialize the window (clear figure, switch, etc.)
@@ -426,16 +427,16 @@ function h = initialize_ui(hObject, handles)
     set(handles.xyslider,'Min',1);
     set(handles.xyslider,'Max',1);
     set(handles.xyslider,'Value',1);
-    set(handles.xzslider,'Enable','off');
-    set(handles.xzslider,'SliderStep',[0.01,0.1]);
-    set(handles.xzslider,'Min',1);
-    set(handles.xzslider,'Max',1);
-    set(handles.xzslider,'Value',1);
-    set(handles.yzslider,'Enable','off');
-    set(handles.yzslider,'SliderStep',[0.01,0.1]);
-    set(handles.yzslider,'Min',1);
-    set(handles.yzslider,'Max',1);
-    set(handles.yzslider,'Value',1);
+    set(handles.zyslider,'Enable','off');
+    set(handles.zyslider,'SliderStep',[0.01,0.1]);
+    set(handles.zyslider,'Min',1);
+    set(handles.zyslider,'Max',1);
+    set(handles.zyslider,'Value',1);
+    set(handles.zxslider,'Enable','off');
+    set(handles.zxslider,'SliderStep',[0.01,0.1]);
+    set(handles.zxslider,'Min',1);
+    set(handles.zxslider,'Max',1);
+    set(handles.zxslider,'Value',1);
     
     set(handles.channel_slider,'Enable','off');
     set(handles.channel_slider,'SliderStep',[0.01,0.1]);
@@ -451,12 +452,12 @@ function h = initialize_ui(hObject, handles)
     cla(handles.xyview);
     set(handles.xyview,'Visible','off');
     colormap(handles.xyview, gray);
-    cla(handles.xzview);
-    set(handles.xzview,'Visible','off');
-    colormap(handles.xzview, gray);
     cla(handles.zyview);
     set(handles.zyview,'Visible','off');
     colormap(handles.zyview, gray);
+    cla(handles.xzview);
+    set(handles.xzview,'Visible','off');
+    colormap(handles.xzview, gray);
 
     % Initialize menu items
     set(handles.item_view_positioncross,'Checked','on');
@@ -537,7 +538,7 @@ function set_current_image(hObject, handles, data)
                 handles.image(:,:,:,c) = handles.image(:,:,:,c) + double(reshape(cell2mat(data{1,1}(c:handles.number_channels:end,1)'), handles.x_size, handles.y_size, handles.z_size)) ./ 255.0;
             end
         else
-            handles.image = reshape(cell2mat(data{1}(:,1)'), handles.x_size, handles.y_size, handles.z_size);
+            handles.image = reshape(cell2mat(data{1}(:,1)'), handles.y_size, handles.x_size, handles.z_size);
         end
     else
         handles.image = data;
@@ -556,20 +557,20 @@ function set_current_image(hObject, handles, data)
     set(handles.xyslider,'Enable','on');
     set(handles.xyslider,'Max',handles.z_size);
     set(handles.xyslider,'SliderStep',[1,5]./handles.z_size);
-    set(handles.xzslider,'Enable','on');
-    set(handles.xzslider,'Max',handles.y_size);
-    set(handles.xzslider,'SliderStep',[1,5]./handles.y_size);
-    set(handles.yzslider,'Enable','on');
-    set(handles.yzslider,'Max',handles.x_size);
-    set(handles.yzslider,'SliderStep',[1,5]./handles.x_size);
+    set(handles.zyslider,'Enable','on');
+    set(handles.zyslider,'Max',handles.x_size);
+    set(handles.zyslider,'SliderStep',[1,5]./handles.x_size);
+    set(handles.zxslider,'Enable','on');
+    set(handles.zxslider,'Max',handles.y_size);
+    set(handles.zxslider,'SliderStep',[1,5]./handles.y_size);
     
     % Update position of sliders
     x_pos = round(handles.x_size/2);
     y_pos = round(handles.y_size/2);
     z_pos = round(handles.z_size/2);
     set(handles.xyslider,'Value',z_pos);
-    set(handles.xzslider,'Value',y_pos);
-    set(handles.yzslider,'Value',x_pos);
+    set(handles.zyslider,'Value',x_pos);
+    set(handles.zxslider,'Value',y_pos);
     
     % Update image xytext
     set_current_image_position(hObject, handles, x_pos, y_pos, z_pos);
@@ -582,18 +583,18 @@ function set_current_mask(hObject, handles, data)
 
     % Check correspondance of mask size with image size
     if (iscell(data) && (handles.x_size ~= size(data{1}{1},2) || handles.y_size ~= size(data{1}{1},1) || handles.z_size ~= length(data{1}))) || ...
-       (handles.x_size ~= size(data,2) || handles.y_size ~= size(data,1) || handles.z_size ~= size(data,3))
+       (~iscell(data) && (handles.x_size ~= size(data,2) || handles.y_size ~= size(data,1) || handles.z_size ~= size(data,3)))
         errordlg('The mask does not have the same size as image!','Error when displaying mask on image');
     else
         % Get image intensities
         if iscell(data)
-            handles.mask = reshape(cell2mat(data{1}(:,1)'), handles.x_size, handles.y_size, handles.z_size);
+            handles.mask = reshape(cell2mat(data{1}(:,1)'), handles.y_size, handles.x_size, handles.z_size);
         else
             handles.mask = data;
         end
         
         % Update image xytext
-        set_current_image_position(hObject, handles, round(get(handles.yzslider,'Value')), round(get(handles.xzslider,'Value')), round(get(handles.xyslider,'Value')));
+        set_current_image_position(hObject, handles, round(get(handles.zyslider,'Value')), round(get(handles.zxslider,'Value')), round(get(handles.xyslider,'Value')));
     end
 
 
@@ -613,17 +614,17 @@ function set_current_image_position(hObject, handles, x_pos, y_pos, z_pos)
     
     % Set text information
     set(handles.itext,'String',horzcat('I: ',num2str(handles.x_pos),' / ',num2str(handles.x_size),' pixels'));
-    set(handles.xtext,'String',horzcat('X: ',num2str(handles.x_pos*handles.x_physical,'%.2f'),' / ',num2str(handles.x_size*handles.x_physical,'%.2f'),' ',handles.x_unit));
+    set(handles.xtext,'String',horzcat('X: ',num2str((handles.x_pos-1)*handles.x_physical,'%.2f'),' / ',num2str((handles.x_size-1)*handles.x_physical,'%.2f'),' ',handles.x_unit));
     set(handles.jtext,'String',horzcat('J: ',num2str(handles.y_pos),' / ',num2str(handles.y_size),' pixels'));
-    set(handles.ytext,'String',horzcat('X: ',num2str(handles.y_pos*handles.y_physical,'%.2f'),' / ',num2str(handles.y_size*handles.y_physical,'%.2f'),' ',handles.y_unit));
+    set(handles.ytext,'String',horzcat('Y: ',num2str((handles.y_pos-1)*handles.y_physical,'%.2f'),' / ',num2str((handles.y_size-1)*handles.y_physical,'%.2f'),' ',handles.y_unit));
     set(handles.ktext,'String',horzcat('K: ',num2str(handles.z_pos),' / ',num2str(handles.z_size),' pixels'));
-    set(handles.ztext,'String',horzcat('Z: ',num2str(handles.z_pos*handles.z_physical,'%.2f'),' / ',num2str(handles.z_size*handles.z_physical,'%.2f'),' ',handles.z_unit));
+    set(handles.ztext,'String',horzcat('Z: ',num2str((handles.z_pos-1)*handles.z_physical,'%.2f'),' / ',num2str((handles.z_size-1)*handles.z_physical,'%.2f'),' ',handles.z_unit));
     
     % Set intensity information
     if handles.number_channels > 1
-        set(handles.intensity_pixel,'String',horzcat('Current pixel: ',num2str(handles.image(x_pos,y_pos,z_pos,1))));
+        set(handles.intensity_pixel,'String',horzcat('Current pixel: ',num2str(handles.image(y_pos,x_pos,z_pos,1))));
     else
-        set(handles.intensity_pixel,'String',horzcat('Current pixel: ',num2str(handles.image(x_pos,y_pos,z_pos))));
+        set(handles.intensity_pixel,'String',horzcat('Current pixel: ',num2str(handles.image(y_pos,x_pos,z_pos))));
     end
     
     % Update view
@@ -636,50 +637,48 @@ function update_current_image_view(handles)
 
     % Display on orthogonal view
     if handles.number_channels > 1
-        imagesc(handles.xyview, handles.y_vec, handles.x_vec, reshape(handles.image(:,:,handles.z_pos,:),handles.x_size,handles.y_size,handles.number_channels)); % we need to reshape from a 1xAxB dimensional image to AxB to make imagesc accept it
+        imagesc(handles.xyview, handles.x_vec, handles.y_vec, reshape(handles.image(:,:,handles.z_pos,:),handles.x_size,handles.y_size,handles.number_channels)); % we need to reshape from a 1xAxB dimensional image to AxB to make imagesc accept it
     else
-        imagesc(handles.xyview, handles.y_vec, handles.x_vec, handles.image(:,:,handles.z_pos), handles.intensityrange);
+        imagesc(handles.xyview, handles.x_vec, handles.y_vec, handles.image(:,:,handles.z_pos), handles.intensityrange);
     end
     title(handles.xyview, 'XY view');
-    xlabel(handles.xyview, horzcat('Y (',handles.y_unit,')')); ylabel(handles.xyview, horzcat('X (',handles.x_unit,')'));
-    set(handles.xyview,'XLim',[min(handles.y_vec),max(handles.y_vec)]);
-    set(handles.xyview,'YLim',[min(handles.x_vec),max(handles.x_vec)]);
+    xlabel(handles.xyview, horzcat('X (',handles.x_unit,')')); ylabel(handles.xyview, horzcat('Y (',handles.y_unit,')'));
+    set(handles.xyview,'XLim',[min(handles.x_vec),max(handles.x_vec)]);
+    set(handles.xyview,'YLim',[min(handles.y_vec),max(handles.y_vec)]);
     
     if handles.number_channels > 1
-        imagesc(handles.xzview, handles.z_vec, handles.x_vec, reshape(handles.image(:,handles.y_pos,:,:),handles.x_size,handles.z_size,handles.number_channels)); % we need to reshape from a 1xAxB dimensional image to AxB to make imagesc accept it
+        imagesc(handles.xzview, handles.x_vec, handles.z_vec, permute(reshape(handles.image(handles.y_pos,:,:,:),handles.x_size,handles.z_size,handles.number_channels), [2,1,3])); % we need to reshape from a 1xAxB dimensional image to AxB to make imagesc accept it
     else
-        imagesc(handles.xzview, handles.z_vec, handles.x_vec, reshape(handles.image(:,handles.y_pos,:),handles.x_size,handles.z_size), handles.intensityrange); % we need to reshape from a 1xAxB dimensional image to AxB to make imagesc accept it
+        imagesc(handles.xzview, handles.x_vec, handles.z_vec, reshape(handles.image(handles.y_pos,:,:), handles.x_size, handles.z_size)', handles.intensityrange); % we need to reshape from a 1xAxB dimensional image to AxB to make imagesc accept it
     end
     title(handles.xzview, 'XZ view');
-    xlabel(handles.xzview, horzcat('Z (',handles.z_unit,')')); ylabel(handles.xzview, horzcat('X (',handles.x_unit,')'));
-    set(handles.xzview,'XLim',[min(handles.z_vec),max(handles.z_vec)]);
-    set(handles.xzview,'YLim',[min(handles.x_vec),max(handles.x_vec)]);
-    set(handles.xzview,'XDir','reverse');
+    xlabel(handles.xzview, horzcat('X (',handles.x_unit,')')); ylabel(handles.xzview, horzcat('Z (',handles.z_unit,')'));
+    set(handles.xzview,'XLim',[min(handles.x_vec),max(handles.x_vec)]);
+    set(handles.xzview,'YLim',[min(handles.z_vec),max(handles.z_vec)]);
     
     if handles.number_channels > 1
-        imagesc(handles.zyview, handles.y_vec, handles.z_vec, permute(reshape(handles.image(handles.x_pos,:,:,:),handles.y_size,handles.z_size,handles.number_channels),[2,1,3])); % idem
+        imagesc(handles.zyview, handles.z_vec, handles.y_vec, reshape(handles.image(:,handles.x_pos,:,:),handles.y_size,handles.z_size,handles.number_channels)); % idem
     else
-        imagesc(handles.zyview, handles.y_vec, handles.z_vec, reshape(handles.image(handles.x_pos,:,:),handles.y_size,handles.z_size)', handles.intensityrange); % idem
+        imagesc(handles.zyview, handles.z_vec, handles.y_vec, reshape(handles.image(:,handles.x_pos,:),handles.y_size,handles.z_size), handles.intensityrange); % idem
     end
     title(handles.zyview, 'ZY view');
-    xlabel(handles.zyview, horzcat('Y (',handles.y_unit,')')); ylabel(handles.zyview, horzcat('Z (',handles.z_unit,')'));
-    set(handles.zyview,'XLim',[min(handles.y_vec),max(handles.y_vec)]);
-    set(handles.zyview,'YLim',[min(handles.z_vec),max(handles.z_vec)]);
-    set(handles.zyview,'YDir','normal');
+    xlabel(handles.zyview, horzcat('Z (',handles.z_unit,')')); ylabel(handles.zyview, horzcat('Y (',handles.y_unit,')'));
+    set(handles.zyview,'XLim',[min(handles.z_vec),max(handles.z_vec)]);
+    set(handles.zyview,'YLim',[min(handles.y_vec),max(handles.y_vec)]);
     
     % Add position cross
     if handles.positioncross
         hold(handles.xyview, 'on');
-        plot(handles.xyview, [0,handles.y_size-1].*handles.y_physical,[handles.x_pos-1,handles.x_pos-1].*handles.x_physical,'-y');
-        plot(handles.xyview, [handles.y_pos-1,handles.y_pos-1].*handles.y_physical,[0,handles.x_size-1].*handles.x_physical,'-y');
+        plot(handles.xyview, [0,handles.x_size-1].*handles.x_physical,[handles.y_pos-1,handles.y_pos-1].*handles.y_physical,'-y');
+        plot(handles.xyview, [handles.x_pos-1,handles.x_pos-1].*handles.x_physical,[0,handles.y_size-1].*handles.y_physical,'-y');
         hold(handles.xyview, 'off');
         hold(handles.xzview, 'on');
-        plot(handles.xzview, [0,handles.z_size-1].*handles.z_physical,[handles.x_pos-1,handles.x_pos-1].*handles.x_physical,'-y');
-        plot(handles.xzview, [handles.z_pos-1,handles.z_pos-1].*handles.z_physical,[0,handles.x_size-1].*handles.x_physical,'-y');
+        plot(handles.xzview, [0,handles.x_size-1].*handles.x_physical,[handles.z_pos-1,handles.z_pos-1].*handles.z_physical,'-y');
+        plot(handles.xzview, [handles.x_pos-1,handles.x_pos-1].*handles.x_physical,[0,handles.z_size-1].*handles.z_physical,'-y');
         hold(handles.xzview, 'off');
         hold(handles.zyview, 'on');
-        plot(handles.zyview, [0,handles.y_size-1].*handles.y_physical,[handles.z_pos-1,handles.z_pos-1].*handles.z_physical,'-y');
-        plot(handles.zyview, [handles.y_pos-1,handles.y_pos-1].*handles.y_physical,[0,handles.z_size-1].*handles.z_physical,'-y');
+        plot(handles.zyview, [0,handles.z_size-1].*handles.z_physical,[handles.y_pos-1,handles.y_pos-1].*handles.y_physical,'-y');
+        plot(handles.zyview, [handles.z_pos-1,handles.z_pos-1].*handles.z_physical,[0,handles.y_size-1].*handles.y_physical,'-y');
         hold(handles.zyview, 'off');
     end
     
@@ -688,22 +687,21 @@ function update_current_image_view(handles)
         currentSlice = handles.mask(:,:,handles.z_pos);
         if sum(currentSlice(:) ~= currentSlice(1)) > 0 % To check if we are not trying to display a constant contour (is there a better way to test constantness?)
             hold(handles.xyview, 'on');
-            contour(handles.xyview, handles.y_vec, handles.x_vec, currentSlice, [0.5,0.5], '-g');
+            contour(handles.xyview, handles.x_vec, handles.y_vec, currentSlice, [0.5,0.5], '-g');
             hold(handles.xyview, 'off');
         end
         
-        currentSlice = reshape(handles.mask(:,handles.y_pos,:),handles.x_size,handles.z_size);
+        currentSlice = reshape(handles.mask(handles.y_pos,:,:),handles.x_size,handles.z_size)';
         if sum(currentSlice(:) ~= currentSlice(1)) > 0 % idem
             hold(handles.xzview, 'on');
-            contour(handles.xzview, handles.z_vec, handles.x_vec, currentSlice, [0.5,0.5], '-g'); % we need to reshape from a 1xAxB dimensional image to AxB to make imagesc accept it
+            contour(handles.xzview, handles.x_vec, handles.z_vec, currentSlice, [0.5,0.5], '-g'); % we need to reshape from a 1xAxB dimensional image to AxB to make imagesc accept it
             hold(handles.xzview, 'off');
         end
         
-        currentSlice = reshape(handles.mask(handles.x_pos,:,:),handles.y_size,handles.z_size)';
+        currentSlice = reshape(handles.mask(:,handles.x_pos,:),handles.y_size,handles.z_size);
         if sum(currentSlice(:) ~= currentSlice(1)) > 0 % idem
             hold(handles.zyview, 'on');
-            contour(handles.zyview, handles.y_vec, handles.z_vec, currentSlice, [0.5,0.5], '-g'); % idem
+            contour(handles.zyview, handles.z_vec, handles.y_vec, currentSlice, [0.5,0.5], '-g'); % idem
             hold(handles.zyview, 'off');
         end
     end
-    
