@@ -374,8 +374,8 @@ function figure1_WindowButtonDownFcn(object, eventdata, hObject)
     
     if lim_x(1) <= mouse_pos(1,1) && mouse_pos(1,1) <= lim_x(2) && ...
        lim_y(1) <= mouse_pos(1,2) && mouse_pos(1,2) <= lim_y(2)
-        x_pos = round(mouse_pos(1,1)/handles.x_physical);
-        y_pos = round(mouse_pos(1,2)/handles.y_physical);
+        x_pos = round((mouse_pos(1,1)+1)/handles.x_physical);
+        y_pos = round((mouse_pos(1,2)+1)/handles.y_physical);
         z_pos = round(handles.z_pos);
     else
         mouse_pos = get(handles.xzview,'CurrentPoint');
@@ -384,9 +384,9 @@ function figure1_WindowButtonDownFcn(object, eventdata, hObject)
         
         if lim_x(1) <= mouse_pos(1,1) && mouse_pos(1,1) <= lim_x(2) && ...
            lim_y(1) <= mouse_pos(1,2) && mouse_pos(1,2) <= lim_y(2)
-            x_pos = round(mouse_pos(1,1)/handles.x_physical);
+            x_pos = round((mouse_pos(1,1)+1)/handles.x_physical);
             y_pos = round(handles.y_pos);
-            z_pos = round(mouse_pos(1,2)/handles.z_physical);
+            z_pos = round((mouse_pos(1,2)+1)/handles.z_physical);
         else
             mouse_pos = get(handles.zyview,'CurrentPoint');
             lim_x = get(handles.zyview,'XLim');
@@ -395,8 +395,8 @@ function figure1_WindowButtonDownFcn(object, eventdata, hObject)
             if lim_x(1) <= mouse_pos(1,1) && mouse_pos(1,1) <= lim_x(2) && ...
                lim_y(1) <= mouse_pos(1,2) && mouse_pos(1,2) <= lim_y(2)
                 x_pos = round(handles.x_pos);
-                y_pos = round(mouse_pos(1,1)/handles.y_physical);
-                z_pos = round(mouse_pos(1,2)/handles.z_physical);
+                y_pos = round((mouse_pos(1,2)+1)/handles.y_physical);
+                z_pos = round((mouse_pos(1,1)+1)/handles.z_physical);
             else
                 x_pos = handles.x_pos;
                 y_pos = handles.y_pos;
@@ -405,7 +405,6 @@ function figure1_WindowButtonDownFcn(object, eventdata, hObject)
         end
     end
     
-%     disp(x_pos); disp(y_pos); disp(z_pos);
     set_current_image_position(hObject, handles, x_pos, y_pos, z_pos);
     set(handles.xyslider,'Value',z_pos);
     set(handles.zyslider,'Value',x_pos);
